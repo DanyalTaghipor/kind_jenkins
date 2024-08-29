@@ -155,7 +155,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  verbs: ["get", "list", "create"]
+  verbs: ["get", "list", "create", "update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -179,7 +179,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["serviceaccounts"]
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "create"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -206,7 +206,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["services"]
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "create"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -233,7 +233,7 @@ metadata:
 rules:
 - apiGroups: ["apps"]
   resources: ["deployments"]
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "create"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -259,7 +259,7 @@ metadata:
 rules:
 - apiGroups: ["networking.k8s.io"]
   resources: ["ingresses"]
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "create"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
