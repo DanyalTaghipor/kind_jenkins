@@ -1,0 +1,27 @@
+controller:
+  image:
+    registry: "docker.io"
+    repository: "jenkins/jenkins"
+    tag: "lts"
+    tagLabel: ""
+    pullPolicy: "IfNotPresent"
+
+  serviceType: ClusterIP
+  clusterIp: ""
+  servicePort: 8080
+  targetPort: 8080
+  nodePort: ""
+
+  ingress:
+    enabled: true
+
+    apiVersion: "networking.k8s.io/v1"
+
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+
+    hostName: <DOMIN>
+
+rbac:
+  create: true
+  readSecrets: true
