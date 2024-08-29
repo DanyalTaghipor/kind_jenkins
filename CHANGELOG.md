@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.1.1 (2024-08-29)
+
+### Fix
+
+* fix(helm/jenkins/rbac): modify some roles ([`be0e75c`](https://github.com/DanyalTaghipor/kind_jenkins/commit/be0e75c03f9eb04d77324edd34dd04ff71257691))
+
+### Refactor
+
+* refactor(README): modify README ([`07a1555`](https://github.com/DanyalTaghipor/kind_jenkins/commit/07a15554a3c98ef25b8be09f030650dbc4d0b9e7))
+
+* refactor(README): modify README ([`0cdf8ec`](https://github.com/DanyalTaghipor/kind_jenkins/commit/0cdf8eceb5ed06786318fbb8af3afa531940d7c6))
+
 ## v0.1.0 (2024-08-29)
 
 ### Chore
