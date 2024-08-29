@@ -21,11 +21,11 @@ Before you start, make sure you have the following installed:
    - **Linux**:
 
     ```sh
-        # For AMD64 / x86_64
-    [ $(uname -m) = x86_64 ] && curl -Lo ./kind https:/   kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+    # For AMD64 / x86_64
+    [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
 
-        # For ARM64
-    [ $(uname -m) = aarch64 ] && curl -Lo ./kind https://   kind.sigs.k8s.io/dl/v0.24.0/kind-linux-arm64
+    # For ARM64
+    [ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-arm64
 
     chmod +x ./kind
 
@@ -85,7 +85,32 @@ Before you start, make sure you have the following installed:
 
    You should see information about your cluster's control-plane and other components.
 
-## Step 3: Deploy Jenkins with Helm
+## Step 3: Configure Jenkins for Kubernetes
+
+### Create a Kubernetes Cloud in Jenkins
+
+Since Jenkins is running inside the Kubernetes cluster, we can use the Kubernetes plugin to dynamically provision agents (pods) within the cluster.
+
+1. **Access Jenkins Configuration**:
+   - Go to the Jenkins dashboard.
+   - Navigate to "Manage Jenkins" > "Manage Nodes and Clouds" > "Configure Clouds".
+
+2. **Add a New Kubernetes Cloud**:
+   - Click on "Add a new cloud" and select "Kubernetes".
+   - Name the cloud (e.g., `kubernetes`).
+
+3. **Configure Kubernetes Cloud**:
+   - **Kubernetes URL**: Leave this field blank since Jenkins is running inside the cluster and can auto-discover the API server.
+   - **Kubernetes Namespace**: Specify the namespace where Jenkins is running (e.g., `default`).
+   - **Jenkins tunnel**: Leave this field blank (auto-configured).
+
+4. **Enable WebSockets**:
+   - In the Kubernetes Cloud configuration, scroll down and enable the option "Use WebSocket" under the "Advanced" section. This is crucial for Jenkins to communicate effectively with agents.
+
+5. **Test Connection**:
+   - Click "Test Connection" to ensure Jenkins can connect to the Kubernetes API.
+
+### Step 4: Deploy Jenkins with Helm
 
 1. **Navigate to the Helm Chart Directory**
 
