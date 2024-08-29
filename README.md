@@ -85,7 +85,31 @@ Before you start, make sure you have the following installed:
 
    You should see information about your cluster's control-plane and other components.
 
-## Step 3: Configure Jenkins for Kubernetes
+## Step 3: Install the NGINX Ingress Controller
+
+Before deploying Jenkins, you need to install the NGINX Ingress Controller to handle ingress traffic:
+
+1. **Install NGINX Ingress Controller**
+
+   Run the following command:
+
+   ```sh
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+   ```
+
+   This will deploy the NGINX Ingress Controller into your KIND cluster, which will manage incoming HTTP(S) requests and route them to the appropriate services.
+
+2. **Verify the Ingress Installation**
+
+   Check that the ingress controller is running:
+
+   ```sh
+   kubectl get pods -n ingress-nginx
+   ```
+
+   You should see the ingress controller pods running.
+
+## Step 4: Configure Jenkins for Kubernetes
 
 ### Create a Kubernetes Cloud in Jenkins
 
@@ -110,7 +134,7 @@ Since Jenkins is running inside the Kubernetes cluster, we can use the Kubernete
 5. **Test Connection**:
    - Click "Test Connection" to ensure Jenkins can connect to the Kubernetes API.
 
-### Step 4: Deploy Jenkins with Helm
+### Step 5: Deploy Jenkins with Helm
 
 1. **Navigate to the Helm Chart Directory**
 
