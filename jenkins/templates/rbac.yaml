@@ -146,4 +146,135 @@ subjects:
 
 {{- end}}
 
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ template "jenkins.fullname" . }}-list-secrets
+  namespace: {{ template "jenkins.namespace" . }}
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceName }}-list-secrets-binding
+  namespace: {{ template "jenkins.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "jenkins.fullname" . }}-list-secrets
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: {{ template "jenkins.namespace" . }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $serviceName }}-get-serviceaccounts
+  namespace: {{ template "jenkins.namespace" . }}
+rules:
+- apiGroups: [""]
+  resources: ["serviceaccounts"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceName }}-get-serviceaccounts-binding
+  namespace: {{ template "jenkins.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "jenkins.fullname" . }}-get-serviceaccounts
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ template "jenkins.namespace" . }}
+  
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $serviceName }}-get-services
+  namespace: {{ template "jenkins.namespace" . }}
+rules:
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceName }}-get-services-binding
+  namespace: {{ template "jenkins.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "jenkins.fullname" . }}-get-services
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ template "jenkins.namespace" . }}
+  
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $serviceName }}-get-deployments
+  namespace: {{ template "jenkins.namespace" . }}
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceName }}-get-deployments-binding
+  namespace: {{ template "jenkins.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "jenkins.fullname" . }}-get-deployments
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ template "jenkins.namespace" . }}
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $serviceName }}-get-ingresses
+  namespace: {{ template "jenkins.namespace" . }}
+rules:
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $serviceName }}-get-ingresses-binding
+  namespace: {{ template "jenkins.namespace" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "jenkins.fullname" . }}-get-ingresses
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ template "jenkins.namespace" . }}
+
+---
 {{ end }}
